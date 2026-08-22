@@ -12,7 +12,7 @@ export default function Archives() {
         />
 
         <div className="relative z-10">
-          <h1 className="text-4xl font-heading text-gray-900 mb-2">Resources & Archives</h1>
+          <h1 className="text-3xl md:text-4xl font-heading leading-tight text-gray-900">Resources & Archives</h1>
         </div>
         
       </div>

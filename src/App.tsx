@@ -1,7 +1,7 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
-import Announcements from './pages/Announcements';
+import Notices from './pages/Notices';
 import Candidates from './pages/Candidates';
 import Archives from './pages/Archives';
 import Contact from './pages/Contact';
@@ -15,7 +15,7 @@ function App() {
           
           {/* 'index' means this loads automatically at the "/" path */}
           <Route index element={<Home />} />
-          <Route path="announcements" element={<Announcements />} />
+          <Route path="/notices" element={<Notices />} />
           <Route path="/candidates" element={<Candidates />} />
           <Route path="/archives" element={<Archives />} />
           <Route path="/contact" element={<Contact />} />

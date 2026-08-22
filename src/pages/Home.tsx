@@ -17,7 +17,7 @@ export default function Home() {
           />
 
           <div className="relative z-10 py-20 px-4">
-            <h1 className="text-4xl font-heading leading-tight text-gray-900">Students' Union Elections, 2026-27</h1>
+            <h1 className="text-3xl md:text-4xl font-heading leading-tight text-gray-900">Students' Union Elections, 2026-27</h1>
           </div>
           
         </div>
@@ -25,11 +25,11 @@ export default function Home() {
         {/* Dynamic Sections Wrapper */}
         <div className="space-y-16">
           
-          {/* Announcements Section */}
+          {/* Notices Section */}
           <section>
             <div className="flex justify-between items-center mb-6 border-b border-gray-200 pb-2">
-              <h2 className="text-2xl font-heading text-gray-800">Announcements</h2>
-              <Link to="/announcements" className="group flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors">
+              <h2 className="text-2xl font-heading text-gray-800">Notices</h2>
+              <Link to="/notices" className="group flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors">
                 <span className="text-sm font-bold uppercase tracking-wider">Expand</span>
                 {/* Expander Arrow SVG */}
                 <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform scale-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,12 +75,12 @@ export default function Home() {
             </div>
             
             {/* Archives Content Area - Split Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-10 gap-8 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-10 gap-6 items-center">
               <div className="lg:col-span-7 min-h-[120px] bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl">
                 {/* Blank Area */}
               </div>
               <div className="lg:col-span-3 text-gray-900 font-italic text-base lg:pr-5">
-                To see general notices from the EC,<br/>and verdicts on election guideline violations, from 2015-16 to 2025-26:<br/>Click <a href="https://bitselections.wordpress.com/" rel="noopener noreferrer" className="text-blue-600 hover:underline font-heading font-medium">here</a>.
+                To see general notices from the EC,<br/>and verdicts on election guideline violations, from 2015-16 to 2025-26:<br/>Click <a href="https://bitselections.wordpress.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-heading font-medium">here</a>.
               </div>
             </div>
           </section>

@@ -4,9 +4,7 @@ export default function Contact() {
   return (
     <main className="max-w-6xl mx-auto px-6 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-heading text-gray-900">
-          Contact the EC
-        </h1>
+        <h1 className="text-3xl md:text-4xl font-heading leading-tight text-gray-900">Contact Us</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-stretch">

@@ -1,6 +1,6 @@
 import highlightBlur from '../assets/highlightBlur.svg';
 
-export default function Announcements() {
+export default function Notices() {
   return (
     <main className="max-w-6xl mx-auto px-6 py-12 w-full flex-grow gap-20">
       {/* Title & Subtitle */}
@@ -13,9 +13,12 @@ export default function Announcements() {
         />
 
         <div className="relative z-10">
-          <h1 className="text-4xl font-heading text-gray-900 mb-2">EC Announcements</h1>
-          <p className="text-2xl font-serif italic text-gray-800">
-            Students' Union Elections 2026–27
+          <h1 className="text-3xl md:text-4xl font-heading leading-tight text-gray-900">Notices</h1>
+          <p className="text-xl md:text-2xl font-serif italic text-gray-800">
+            {/* Short version for mobile */}
+            <span className="md:hidden">SU Elections 2026–27</span>
+            {/* Full version for tablets and desktops */}
+            <span className="hidden md:inline">Students' Union Elections 2026–27</span>
           </p>
         </div>
         
