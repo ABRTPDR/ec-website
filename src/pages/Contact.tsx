@@ -72,24 +72,35 @@ export default function Contact() {
             Report guideline violations
           </h2>
 
-          <div className="bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl p-4 flex flex-col items-center text-center flex-grow min-h-0">
+          <div className="bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg p-4 flex flex-col items-center text-center flex-grow min-h-0">
             {/* QR Wrapper */}
             <div className="flex-grow flex items-center justify-center w-full min-h-0">
               <img 
                 src={ecqr} 
                 alt="Report Guidelines Violation QR Code" 
-                className="w-full h-full object-contain rounded-lg"
+                className="w-full h-full object-contain rounded-md"
               />
             </div>
 
             <div className="w-full mt-4 flex-shrink-0">
               <p className="text-sm text-gray-600 mb-1 w-full text-left">Or, click:</p>
-              <a 
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=electioncommission@pilani.bits-pilani.ac.in&su=Reporting a violation" target="_blank" 
-                className="text-blue-600 hover:underline font-sans text-sm break-all w-full text-left block"
-              >
-                electioncommission@pilani.bits-pilani.ac.in
-              </a>
+              {/* Mobile Link: Opens native mail app (Hidden on medium screens and up) */}
+                <a 
+                  href="mailto:electioncommission@pilani.bits-pilani.ac.in?subject=Reporting%20a%20violation" 
+                  className="md:hidden text-blue-600 hover:underline font-sans text-sm break-all w-full text-left block"
+                >
+                  electioncommission@pilani.bits-pilani.ac.in
+                </a>
+
+                {/* Desktop Link: Opens Gmail web browser (Hidden on small screens) */}
+                <a 
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=electioncommission@pilani.bits-pilani.ac.in&su=Reporting a violation" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hidden md:block text-blue-600 hover:underline font-sans text-sm break-all w-full text-left"
+                >
+                  electioncommission@pilani.bits-pilani.ac.in
+                </a>
             </div>
           </div>
         </div>

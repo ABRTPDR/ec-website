@@ -1,18 +1,32 @@
-import highlightBlur from '../assets/highlightBlur.svg';
+import { useState } from 'react';
 
 export default function Candidates() {
-  return (
+  const [selectedBhawan, setSelectedBhawan] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const bhawans = [
+    { code: "AK", name: "Ashok Bhawan" },
+    { code: "BG", name: "Bhagirath Bhawan" },
+    { code: "BD", name: "Budh Bhawan" },
+    { code: "CVR", name: "CVR Bhawan" },
+    { code: "GN", name: "Gandhi Bhawan" },
+    { code: "KR", name: "Krishna Bhawan" },
+    { code: "ML", name: "Malviya Bhawan" },
+    { code: "MR", name: "Meera Bhawan" },
+    { code: "RM", name: "Ram Bhawan" },
+    { code: "RP", name: "Rana Pratap Bhawan" },
+    { code: "SK", name: "Shankar Bhawan" },
+    { code: "SR", name: "SR Bhawan" },
+    { code: "VK", name: "Vishwakarma Bhawan" },
+    { code: "VY", name: "Vyas Bhawan" },
+  ];
+
+  return(
     <main className="max-w-6xl mx-auto px-6 py-12">
       {/* Title & Subtitle */}
-      <div className="z-0 relative text-center mb-12 flex flex-col items-center justify-center">
-        
-        <img 
-          src={highlightBlur} 
-          alt="" 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-auto -z-10 opacity-80 pointer-events-none" 
-        />
+      <div className="relative text-center mb-12 flex flex-col items-center justify-center">
 
-        <div className="relative z-10">
+        <div className="relative">
           <h1 className="text-3xl md:text-4xl font-heading leading-tight text-gray-900">Candidates</h1>
           <p className="text-xl md:text-2xl font-serif italic text-gray-800">
             {/* Short version for mobile */}
@@ -30,7 +44,7 @@ export default function Candidates() {
           <h2 className="text-2xl font-heading text-gray-900 mb-4 border-b border-gray-200 pb-2">
             Presidential Candidates
           </h2>
-          <div className="min-h-[160px] bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl"></div>
+          <div className="min-h-[160px] bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg"></div>
         </section>
 
         {/* General Secretarial Candidates */}
@@ -38,62 +52,66 @@ export default function Candidates() {
           <h2 className="text-2xl font-heading text-gray-900 mb-4 border-b border-gray-200 pb-2">
             General Secretarial Candidates
           </h2>
-          <div className="min-h-[160px] bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl"></div>
+          <div className="min-h-[160px] bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg"></div>
         </section>
 
         {/* Hostel Representative Candidates */}
         <section>
-  <div className="flex justify-between items-center mb-4 border-b border-gray-200 pb-2">
-    <h2 className="text-2xl font-heading text-gray-900">
-      Hostel Representative (H-Rep) Candidates
-    </h2>
-    
-    {/* Dropdown Container */}
-    <div className="relative group flex items-center">
-      
-      {/* Native Select with appearance-none to hide default browser styling */}
-      <select 
-        defaultValue="" 
-        onChange={(e) => {
-          const selectedBhawanCode = e.target.value;
-          console.log("Passed to backend:", selectedBhawanCode);
-          // TODO: Trigger FastAPI fetch here using selectedBhawanCode
-        }}
-        className="appearance-none text-sm font-semibold text-blue-600 hover:text-blue-800 bg-transparent tracking-wider cursor-pointer outline-none pr-6 focus:ring-0"
-      >
-        <option value="" disabled>SELECT BHAWAN</option>
-        <option value="AK">Ashok Bhawan (AK)</option>
-        <option value="BG">Bhagirath Bhawan (BG)</option>
-        <option value="BD">Budh Bhawan (BD)</option>
-        <option value="CVR">CVR Bhawan (CVR)</option>
-        <option value="GN">Gandhi Bhawan (GN)</option>
-        <option value="KR">Krishna Bhawan (KR)</option>
-        <option value="ML">Malviya Bhawan (ML)</option>
-        <option value="MR">Meera Bhawan (MR)</option>
-        <option value="RM">Ram Bhawan (RM)</option>
-        <option value="RP">Rana Pratap Bhawan (RP)</option>
-        <option value="SK">Shankar Bhawan (SK)</option>
-        <option value="SR">SR Bhawan (SR)</option>
-        <option value="VK">Vishwakarma Bhawan (VK)</option>
-        <option value="VY">Vyas Bhawan (VY)</option>
-      </select>
-      
-      {/* Custom Arrow overlaying the native select */}
-      <svg className="w-5 h-5 absolute right-0 pointer-events-none text-blue-600 group-hover:text-blue-800 transform rotate-90 transition-transform scale-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-      </svg>
-      
-    </div>
-  </div>
-  <div className="min-h-[160px] bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl"></div>
-</section>
+          <div className="flex justify-between items-center mb-4 border-b border-gray-200 pb-2 relative">
+            <h2 className="text-2xl font-heading text-gray-900">
+              Hostel Representative (H-Rep) Candidates
+            </h2>
+            
+            {/* Custom Dropdown Container */}
+            <div className="relative group">
+              
+              {/* Dropdown Trigger Button */}
+              <button 
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                onBlur={() => setTimeout(() => setIsDropdownOpen(false), 200)} // Closes menu if user clicks away
+                className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-800 uppercase tracking-wider transition-colors outline-none select-none"
+              >
+                {selectedBhawan ? selectedBhawan : "Select Bhawan"}
+                <svg 
+                  className={`w-5 h-5 scale-80 transition-transform duration-200 ${isDropdownOpen ? "-rotate-90" : "rotate-90"}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </button>
+
+              {/* Dropdown Menu */}
+              {isDropdownOpen && (
+                <div className="absolute right-0 top-full mt-2 w-56 bg-white border border-gray-100 rounded-lg shadow-lg z-50 py-2 max-h-64 overflow-y-auto font-sans flex flex-col gap-1">
+                  {bhawans.map((b) => (
+                    <button
+                      key={b.code}
+                      onClick={() => {
+                        setSelectedBhawan(b.name);
+                        setIsDropdownOpen(false);
+                        console.log("Passed to backend:", b.code);
+                      }}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors"
+                    >
+                      {b.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+              
+            </div>
+          </div>
+          <div className="min-h-[160px] bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg"></div>
+        </section>
 
         {/* Day Scholar Representative Candidates */}
         <section>
           <h2 className="text-2xl font-heading text-gray-900 mb-4 border-b border-gray-200 pb-2">
             Day Scholar Representative (D-Rep) Candidates
           </h2>
-          <div className="min-h-[160px] bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl"></div>
+          <div className="min-h-[160px] bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg"></div>
         </section>
       </div>
     </main>

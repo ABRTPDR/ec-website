@@ -43,9 +43,11 @@ export default function Layout() {
           <NavLink to="/candidates" className={navLinkClass}>Candidates</NavLink>
           
           {/* Archives removed on mobile (hidden), visible on medium screens and up (md:inline) */}
+          {/*
           <NavLink to="/archives" className={(props) => `${navLinkClass(props)} hidden md:inline`}>
             Archives
           </NavLink>
+          */}
           
           <NavLink to="/contact" className={navLinkClass}>
             <span className="hidden sm:inline">Contact Us</span>
