@@ -133,18 +133,19 @@ export default function Home() {
                       <article 
                         key={article.id}
                         onClick={() => setSelectedArticle(article)}
-                        className="w-[72vw] sm:w-[280px] flex-shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-4 shadow-xs hover:shadow-md transition-shadow whitespace-normal flex flex-col cursor-pointer"
+                        // Added h-52 and overflow-hidden to make all cards uniformly sized
+                        className="w-[72vw] sm:w-[280px] h-46 flex-shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-4 shadow-xs hover:shadow-md transition-shadow whitespace-normal flex flex-col cursor-pointer overflow-hidden"
                       >
                         <h3 
-                          className="text-lg font-heading text-gray-900 mb-1 line-clamp-2 leading-snug"
+                          // Added min-h-[3rem] so 1-line and 2-line titles take up the exact same vertical space
+                          className="text-lg font-heading text-gray-900 mb-1 line-clamp-2 leading-snug min-h-[3rem]"
                           dangerouslySetInnerHTML={{ __html: cleanTitle }}
                         />
                         <p className="text-xs font-bold text-gray-500 tracking-wide mb-2 border-b border-gray-100 pb-2">
                           {formattedDate}
                         </p>
                         
-                        {/* Replaced the 'prose' div with a simple paragraph holding the raw text */}
-                        <p className="text-sm text-gray-600 line-clamp-2 leading-normal flex-grow font-sans">
+                        <p className="text-sm text-gray-600 line-clamp-3 leading-normal flex-grow font-sans">
                           {previewText}
                         </p>
                       </article>
