@@ -128,7 +128,7 @@ export default function Home() {
               ) : (
                 <>
                   {articles.slice(0, 5).map((article) => {
-                    const { cleanTitle, cleanContent, formattedDate, previewText } = cleanArticleData(article);
+                    const { cleanTitle, formattedDate, previewText } = cleanArticleData(article);
                     return (
                       <article 
                         key={article.id}
