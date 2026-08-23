@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Notices from './pages/Notices';
@@ -9,6 +10,7 @@ import Contact from './pages/Contact';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* The Layout component wraps all nested routes */}
         <Route path="/" element={<Layout />}>
