@@ -127,7 +127,7 @@ export default function Candidates() {
   ];
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/candidates')
+    fetch('https://ec-website-k8g5.onrender.com/api/candidates')
       .then(res => res.json())
       .then(data => {
         const sortedData = data.sort((a: Candidate, b: Candidate) => a.name.localeCompare(b.name));
