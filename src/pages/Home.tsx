@@ -47,7 +47,7 @@ function NoticeModal({ article, onClose }: { article: Notice; onClose: () => voi
       onClick={onClose}
     >
       <div 
-        className="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl relative"
+        className="bg-white rounded-2xl w-full max-w-3xl max-h-[80vh] flex flex-col overflow-hidden shadow-2xl relative"
         onClick={(e) => e.stopPropagation()} // Prevents click inside box from closing modal
       >
         {/* Modal Header */}
