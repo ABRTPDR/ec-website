@@ -121,7 +121,6 @@ export default function Candidates() {
     { code: "RM", name: "Ram Bhawan" },
     { code: "RP", name: "Rana Pratap Bhawan" },
     { code: "SK", name: "Shankar Bhawan" },
-    { code: "SR", name: "SR Bhawan" },
     { code: "VK", name: "Vishwakarma Bhawan" },
     { code: "VY", name: "Vyas Bhawan" },
   ];
@@ -207,18 +206,26 @@ export default function Candidates() {
 
               {isDropdownOpen && (
                 <div className="absolute left-0 sm:left-auto sm:right-0 top-full mt-2 w-56 bg-white border border-gray-100 rounded-lg shadow-lg z-50 py-2 max-h-64 overflow-y-auto font-sans flex flex-col gap-1">
-                  {bhawans.map((b) => (
-                    <button
-                      key={b.code}
-                      onClick={() => {
-                        setSelectedBhawanCode(b.code);
-                        setIsDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors"
-                    >
-                      {b.name}
-                    </button>
-                  ))}
+                  {bhawans.map((b) => {
+                    const isSelected = b.code === selectedBhawanCode;
+                    
+                    return (
+                      <button
+                        key={b.code}
+                        onClick={() => {
+                          setSelectedBhawanCode(b.code);
+                          setIsDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                          isSelected 
+                            ? "bg-blue-50 text-blue-700 font-bold" 
+                            : "text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                        }`}
+                      >
+                        {b.name}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>
