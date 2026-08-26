@@ -27,9 +27,9 @@ const UserPlaceholder = () => (
 
 const PdfIcon = () => (
   <svg className="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M19 8.5L14 3.5H6C5.46957 3.5 4.96086 3.71071 4.58579 4.08579C4.21071 4.46086 4 4.96957 4 5.5V18.5C4 19.0304 4.21071 19.5391 4.58579 19.9142C4.96086 20.2893 5.46957 20.5 6 20.5H17.5C18.0304 20.5 18.1249 20.3751 18.5 20C18.9486 19.5514 19 19.0304 19 18.5V8.5Z" stroke="black"/>
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M14 3.5V9H19" stroke="black"/>
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M8 13H15M8 17H15" stroke="black"/>
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M19 8.5L14 3.5H6C5.46957 3.5 4.96086 3.71071 4.58579 4.08579C4.21071 4.46086 4 4.96957 4 5.5V18.5C4 19.0304 4.21071 19.5391 4.58579 19.9142C4.96086 20.2893 5.46957 20.5 6 20.5H17.5C18.0304 20.5 18.1249 20.3751 18.5 20C18.9486 19.5514 19 19.0304 19 18.5V8.5Z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M14 3.5V9H19" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M8 13H15M8 17H15" />
   </svg>
 );
 
@@ -48,7 +48,17 @@ const LinkIcon = () => (
 
 // --- CARD COMPONENT ---
 function CandidateCard({ candidate }: { candidate: Candidate }) {
-  const DocButton = ({ link, label, type }: { link: string | undefined, label: string, type: 'pdf' | 'drive' | 'people' }) => {
+  const DocButton = ({ 
+  link, 
+  label, 
+  type, 
+  textSize = "text-[10px] sm:text-xs" // Default size
+  }: { 
+    link: string | undefined; 
+    label: string; 
+    type: 'pdf' | 'drive' | 'people';
+    textSize?: string;
+  }) => {
     const isPending = link === 'PENDING' || !link;
     return (
       <a 
@@ -56,7 +66,7 @@ function CandidateCard({ candidate }: { candidate: Candidate }) {
         target={isPending ? "_self" : "_blank"}
         rel="noopener noreferrer"
         onClick={(e) => isPending && e.preventDefault()}
-        className={`flex flex-col items-center justify-center p-2 rounded-lg border text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-colors text-center shadow-xs ${
+        className={`flex flex-col items-center justify-center p-2 rounded-lg border font-bold uppercase tracking-wider transition-colors text-center shadow-xs ${textSize} ${
           isPending 
             ? 'bg-gray-50 border-gray-100 text-gray-400 cursor-not-allowed opacity-70' 
             : 'bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 hover:shadow-sm'
@@ -93,7 +103,7 @@ function CandidateCard({ candidate }: { candidate: Candidate }) {
         <DocButton link={candidate.sop} label="SOP" type="pdf" />
         {/* URL hardcoded here instead of pulling from the database */}
         <DocButton link="https://drive.google.com/drive/u/1/mobile/folders/1ZbqUOYXXNhX55efFgIQSzERhc7Lfkz78?pli=1" label="Proofs" type="drive" />
-        <DocButton link={candidate.offclist} label="Campaign..." type="people" />
+        <DocButton link={candidate.offclist} label="Campaigners" type="people" textSize="text-[10px] sm:text-[11px]" />
       </div>
 
     </div>
