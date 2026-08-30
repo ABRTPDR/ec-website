@@ -11,6 +11,7 @@ interface Candidate {
   sop: string;
   offclist: string;
   proofs?: string;
+  disclosure?: string; 
 }
 
 // --- HELPER FUNCTION ---
@@ -27,9 +28,9 @@ const UserPlaceholder = () => (
 
 const PdfIcon = () => (
   <svg className="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M19 8.5L14 3.5H6C5.46957 3.5 4.96086 3.71071 4.58579 4.08579C4.21071 4.46086 4 4.96957 4 5.5V18.5C4 19.0304 4.21071 19.5391 4.58579 19.9142C4.96086 20.2893 5.46957 20.5 6 20.5H17.5C18.0304 20.5 18.1249 20.3751 18.5 20C18.9486 19.5514 19 19.0304 19 18.5V8.5Z" />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M14 3.5V9H19" />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M8 13H15M8 17H15" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M19 8.5L14 3.5H6C5.46957 3.5 4.96086 3.71071 4.58579 4.08579C4.21071 4.46086 4 4.96957 4 5.5V18.5C4 19.0304 4.21071 19.5391 4.58579 19.9142C4.96086 20.2893 5.46957 20.5 6 20.5H17.5C18.0304 20.5 18.1249 20.3751 18.5 20C18.9486 19.5514 19 19.0304 19 18.5V8.5Z" stroke="black"/>
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M14 3.5V9H19" stroke="black"/>
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M8 13H15M8 17H15" stroke="black"/>
   </svg>
 );
 
@@ -45,41 +46,73 @@ const LinkIcon = () => (
   </svg>
 );
 
+const DotsIcon = () => (
+  <svg className="w-5 h-5 mb-1 text-inherit" fill="currentColor" viewBox="0 0 24 24">
+    <circle cx="5" cy="12" r="1.5" />
+    <circle cx="12" cy="12" r="1.5" />
+    <circle cx="19" cy="12" r="1.5" />
+  </svg>
+);
+
 
 // --- CARD COMPONENT ---
 function CandidateCard({ candidate }: { candidate: Candidate }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const DocButton = ({ 
-  link, 
-  label, 
-  type, 
-  textSize = "text-[10px] sm:text-xs" // Default size
+    link, 
+    label, 
+    type, 
+    textSize = "text-[10px] sm:text-xs",
+    onClick,
+    isActive
   }: { 
-    link: string | undefined; 
+    link?: string; 
     label: string; 
-    type: 'pdf' | 'drive' | 'people';
+    type: 'pdf' | 'drive' | 'people' | 'dots';
     textSize?: string;
+    onClick?: () => void;
+    isActive?: boolean;
   }) => {
-    const isPending = link === 'PENDING' || !link;
+    // If it's a link-based button, it's pending if there's no link or it equals 'PENDING'
+    const isPending = !onClick && (link === 'PENDING' || !link);
+    const Icon = type === 'pdf' ? PdfIcon : type === 'drive' ? LinkIcon : type === 'people' ? PeopleIcon : DotsIcon;
+
+    const baseClasses = `flex flex-col items-center justify-center p-2 rounded-lg border font-bold uppercase tracking-wider transition-colors text-center shadow-xs ${textSize}`;
+    
+    const stateClasses = isActive 
+      ? 'bg-blue-50 border-blue-300 text-blue-700'
+      : isPending 
+      ? 'bg-gray-50 border-gray-100 text-gray-400 cursor-not-allowed opacity-70' 
+      : 'bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 hover:shadow-sm';
+
+    // Render as an interactive toggle button if onClick is provided
+    if (onClick) {
+      return (
+        <button onClick={onClick} className={`${baseClasses} ${stateClasses}`}>
+          <Icon />
+          <span className="leading-tight">{label}</span>
+        </button>
+      );
+    }
+
+    // Otherwise render as standard external link
     return (
       <a 
         href={isPending ? "#" : link}
         target={isPending ? "_self" : "_blank"}
         rel="noopener noreferrer"
         onClick={(e) => isPending && e.preventDefault()}
-        className={`flex flex-col items-center justify-center p-2 rounded-lg border font-bold uppercase tracking-wider transition-colors text-center shadow-xs ${textSize} ${
-          isPending 
-            ? 'bg-gray-50 border-gray-100 text-gray-400 cursor-not-allowed opacity-70' 
-            : 'bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 hover:shadow-sm'
-        }`}
+        className={`${baseClasses} ${stateClasses}`}
       >
-        {type === 'pdf' ? <PdfIcon /> : type === 'drive' ? <LinkIcon /> : <PeopleIcon />}
+        <Icon />
         <span className="leading-tight">{label}</span>
       </a>
     );
   };
 
   return (
-    <div className="w-[60vw] sm:w-[220px] flex-shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-2 shadow-xs flex flex-col gap-4 hover:shadow-md transition-shadow">
+    <div className="w-[60vw] sm:w-[220px] flex-shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-2 shadow-xs flex flex-col gap-4 hover:shadow-md transition-shadow self-start">
       
       {/* Square Image */}
       <div className="aspect-square w-full rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
@@ -97,13 +130,30 @@ function CandidateCard({ candidate }: { candidate: Candidate }) {
         </h3>
       </div>
 
-      {/* Button Grid */}
-      <div className="grid grid-cols-2 gap-2 mt-auto">
-        <DocButton link={candidate.manifesto} label="Manifesto" type="pdf" />
-        <DocButton link={candidate.sop} label="SOP" type="pdf" />
-        {/* URL hardcoded here instead of pulling from the database */}
-        <DocButton link="https://drive.google.com/drive/u/1/mobile/folders/1ZbqUOYXXNhX55efFgIQSzERhc7Lfkz78?pli=1" label="Proofs" type="drive" />
-        <DocButton link={candidate.offclist} label="Campaigners" type="people" textSize="text-[10px] sm:text-[11px]" />
+      {/* Action Container */}
+      {/* Removed 'mt-auto' so un-expanded buttons align to the top under the name */}
+      <div className="flex flex-col gap-2">
+        {/* Main Grid */}
+        <div className="grid grid-cols-2 gap-2">
+          <DocButton link={candidate.manifesto} label="Manifesto" type="pdf" />
+          <DocButton link={candidate.offclist} label="Campaigners" type="people" textSize="text-[10px] sm:text-[11px]" />
+          <DocButton link="https://drive.google.com/drive/u/1/mobile/folders/1ZbqUOYXXNhX55efFgIQSzERhc7Lfkz78?pli=1" label="Proofs" type="drive" />
+          {/* Documents Toggle Button */}
+          <DocButton 
+            label="Documents" 
+            type="dots" 
+            onClick={() => setIsExpanded(!isExpanded)} 
+            isActive={isExpanded} 
+          />
+        </div>
+
+        {/* Expanded Grid */}
+        {isExpanded && (
+          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-gray-100">
+            <DocButton link={candidate.sop} label="SOP" type="pdf" />
+            <DocButton link={candidate.disclosure} label="Disclosure" type="pdf" />
+          </div>
+        )}
       </div>
 
     </div>

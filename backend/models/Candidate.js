@@ -15,7 +15,8 @@ const candidateSchema = new mongoose.Schema({
   image: { type: String, default: 'PENDING' },
   manifesto: { type: String, required: true },
   sop: { type: String, default: 'PENDING' },
-  offclist: { type: String, default: 'PENDING' }
+  offclist: { type: String, default: 'PENDING' },
+  disclosure: { type: String, default: 'PENDING' },
 });
 
 module.exports = mongoose.model('Candidate', candidateSchema);
