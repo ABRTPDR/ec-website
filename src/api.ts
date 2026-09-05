@@ -17,6 +17,6 @@ export const wpApi = axios.create({
 });
 
 export const fetchArticlesByCategory = async (categoryId: number): Promise<Notice[]> => {
-  const response = await wpApi.get(`/posts?categories=${categoryId}&per_page=100&_embed`);
+  const response = await wpApi.get(`/posts?categories=${categoryId}&per_page=50&_embed`);
   return response.data;
 };
