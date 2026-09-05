@@ -7,7 +7,7 @@ function NoticeCard({ article }: { article: Notice }) {
 
   // 1. Bulletproof Title Fix: Split at the bracket and keep only the first part!
   const cleanTitle = article.title.rendered
-    .split('[')[0]     // Catches normal brackets
+    .split('[')[0] // Catches normal brackets
     .split('&#91;')[0] // Catches HTML-encoded brackets
     .trim();
 
