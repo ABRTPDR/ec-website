@@ -162,6 +162,8 @@ export default function Candidates() {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [loading, setLoading] = useState(true);
   
+  // Commented out to get rid of 'declared but value never read' error
+  /*
   const [selectedBhawanCode, setSelectedBhawanCode] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -180,6 +182,7 @@ export default function Candidates() {
     { code: "VK", name: "Vishwakarma Bhawan" },
     { code: "VY", name: "Vyas Bhawan" },
   ];
+  */
 
   useEffect(() => {
     fetch('https://ec-website-k8g5.onrender.com/api/candidates')
