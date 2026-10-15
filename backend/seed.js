@@ -45,7 +45,7 @@ async function syncManifestos() {
     // Fetch up to 100 PDFs from the 'Manifestos' folder in Cloudinary
     console.log("Fetching assets from Cloudinary...");
     const result = await cloudinary.search
-      .expression('folder:"Elections 2026-27/Manifestos"')
+      .expression('folder:"By-Elections 2026-27/Manifestos"')
       .max_results(100)
       .execute();
 
@@ -53,13 +53,13 @@ async function syncManifestos() {
 
     // Parse each file
     for (const file of result.resources) {
-      // public_id looks like: "Manifestos/BG_Manifesto_ANURAG"
+      // public_id looks like: "Manifestos/MR_Manifesto_A_B"
       // Split by slash to get the filename, then split by underscore
       const filename = file.public_id.split('/').pop(); 
       const parts = filename.split('_'); 
 
       if (parts.length >= 3) {
-        const prefix = parts[0]; // 'BG'
+        const prefix = parts[0]; // 'MR'
         const name = parts.slice(2).join(' '); // Re-join rest of string in case name has underscores
         const formattedName = toTitleCase(name);
 

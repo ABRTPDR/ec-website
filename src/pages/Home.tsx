@@ -7,8 +7,7 @@ import BITS2 from '../assets/BITS2.png';
 import Oasis from '../assets/Oasis.png';
 import APOGEE from '../assets/APOGEE.png';
 
-// --- HELPER FUNCTION ---
-// Formats the date, cleans the title, and completely removes download buttons
+// Helper function to format date, cleans title, and remove download buttons from WP PDF lines
 function cleanArticleData(article: Notice) {
   const cleanTitle = article.title.rendered.split('[')[0].split('&#91;')[0].trim();
   const formattedDate = new Date(article.date).toLocaleDateString('en-US', {
@@ -25,13 +24,13 @@ function cleanArticleData(article: Notice) {
     }
   });
 
-  // NEW: Extract pure, unformatted text for the preview card to prevent spacing/clamp bugs
+  // Extract unformatted text for the preview card to prevent spacing/clamp bugs
   const previewText = doc.body.textContent?.trim() || "";
 
   return { cleanTitle, cleanContent: doc.body.innerHTML, formattedDate, previewText };
 }
 
-// --- MODAL COMPONENT ---
+// Modal component
 function NoticeModal({ article, onClose }: { article: Notice; onClose: () => void }) {
   // Lock background scroll when modal is open
   useEffect(() => {
@@ -82,14 +81,14 @@ function NoticeModal({ article, onClose }: { article: Notice; onClose: () => voi
 }
 
 
-// --- MAIN HOME PAGE COMPONENT ---
+// Main home page
 export default function Home() {
   const [articles, setArticles] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedArticle, setSelectedArticle] = useState<Notice | null>(null);
 
   useEffect(() => {
-    fetchArticlesByCategory(790989665)
+    fetchArticlesByCategory(790989665, 5) // Load only latest 5 notices
       .then(setArticles)
       .catch((err) => console.error("Failed to fetch notices:", err))
       .finally(() => setLoading(false));
@@ -102,7 +101,7 @@ export default function Home() {
 
         <div className="relative text-center flex flex-col items-center justify-center">
           <div className="py-20 px-4">
-            <h1 className="text-3xl md:text-4xl font-heading leading-tight text-gray-900">Students' Union Elections, 2026-27</h1>
+            <h1 className="text-3xl md:text-4xl font-heading leading-tight text-gray-900">Students' Union By-Elections, 2026-27</h1>
           </div>
         </div>
 
@@ -179,7 +178,7 @@ export default function Home() {
             </div>
             <div className="flex justify-between items-center mb-6">
               <Link to="/candidates" className="group flex items-center gap-2">
-                <h2 className="text-m font-heading">Expand this section to know the candidates standing for the posts of President, General Secretary, Hostel Representatives, and Day-Scholar Representative. Review their Manifestos and Statements of Purpose, to make an informed choice when you vote.</h2>
+                <h2 className="text-m font-heading">Expand this section to know the candidates standing for the posts of Hostel Representative of Meera Bhawan, Shankar Bhawan, and SR Bhawan. Review their Manifestos and Statements of Purpose, to make an informed choice when you vote.</h2>
               </Link>
             </div>
           </section>
@@ -193,7 +192,22 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-10 gap-6 items-center">
               <div className="lg:col-span-7 w-full flex gap-4 overflow-x-auto overflow-y-hidden whitespace-nowrap pb-4 snap-x custom-scrollbar">
                 
-                {/* PDF 1 - Election Guidelines */}
+                {/* PDF 1 - By-Election Tineline */}
+                <a 
+                  href="/assets/By_Election_Timeline_2026-27.pdf" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="relative block w-32 h-32 flex-shrink-0 rounded-xl overflow-hidden snap-start group shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <img src={BITS} alt="By-Election Timeline" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent pointer-events-none"></div>
+                  <div className="absolute bottom-2 left-2 right-2 pointer-events-none">
+                    <span className="text-white text-xs font-bold whitespace-normal line-clamp-2 leading-tight">By-Election Timeline</span>
+                  </div>
+                </a>
+                
+
+                {/* PDF 2 - Election Guidelines */}
                 <a 
                   href="/assets/Election_Guidelines_2026-27.pdf" 
                   target="_blank" 
@@ -204,20 +218,6 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent pointer-events-none"></div>
                   <div className="absolute bottom-2 left-2 right-2 pointer-events-none">
                     <span className="text-white text-xs font-bold whitespace-normal line-clamp-2 leading-tight">Election Guidelines</span>
-                  </div>
-                </a>
-
-                {/* PDF 2 - Election Timeline */}
-                <a 
-                  href="/assets/Election_Timeline_2026-27.pdf" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="relative block w-32 h-32 flex-shrink-0 rounded-xl overflow-hidden snap-start group shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <img src={BITS} alt="Election Timeline" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent pointer-events-none"></div>
-                  <div className="absolute bottom-2 left-2 right-2 pointer-events-none">
-                    <span className="text-white text-xs font-bold whitespace-normal line-clamp-2 leading-tight">Election Timeline</span>
                   </div>
                 </a>
 

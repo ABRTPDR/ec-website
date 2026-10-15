@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { fetchArticlesByCategory, type Notice } from '../api';
 
-// 1. Create a dedicated component for individual notices to handle their own expand/collapse state
+// Create a dedicated component for individual notices to handle their own expand/collapse state
 function NoticeCard({ article }: { article: Notice }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // 1. Bulletproof Title Fix: Split at the bracket and keep only the first part!
+  // Title fix: split at the bracket and keep only the first part
   const cleanTitle = article.title.rendered
+    /*
     .split('[')[0] // Catches normal brackets
     .split('&#91;')[0] // Catches HTML-encoded brackets
+    */
     .trim();
 
   const formattedDate = new Date(article.date).toLocaleDateString('en-US', {
@@ -17,7 +19,7 @@ function NoticeCard({ article }: { article: Notice }) {
     year: 'numeric'
   });
 
-  // Clean Content: Physically delete the WordPress download button from the HTML string before rendering
+  // Clean Content: delete the WordPress download button from the HTML string before rendering
   const cleanContent = article.content.rendered
     // Removes the standard WordPress file block button
     .replace(/<a[^>]*class="[^"]*wp-block-file__button[^"]*"[^>]*>.*?<\/a>/gi, '')
@@ -90,8 +92,8 @@ export default function Notices() {
         <div className="relative">
           <h1 className="text-3xl md:text-4xl font-heading leading-tight text-gray-900">Notices</h1>
           <p className="text-xl md:text-2xl font-serif italic text-gray-800">
-            <span className="md:hidden">SU Elections 2026–27</span>
-            <span className="hidden md:inline">Students' Union Elections 2026–27</span>
+            <span className="md:hidden">SU By-Elections 2026–27</span>
+            <span className="hidden md:inline">Students' Union By-Elections 2026–27</span>
           </p>
         </div>
       </div>

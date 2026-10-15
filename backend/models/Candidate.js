@@ -17,6 +17,8 @@ const candidateSchema = new mongoose.Schema({
   sop: { type: String, default: 'PENDING' },
   offclist: { type: String, default: 'PENDING' },
   disclosure: { type: String, default: 'PENDING' },
+}, {
+  collection: 'byecandidates' // was previously 'candidates'
 });
 
 module.exports = mongoose.model('Candidate', candidateSchema);

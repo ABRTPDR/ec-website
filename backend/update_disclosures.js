@@ -3,14 +3,14 @@ const mongoose = require('mongoose');
 const cloudinary = require('cloudinary').v2;
 const Candidate = require('./models/Candidate');
 
-// 1. Configure Cloudinary
+// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUDNAME,
   api_key: process.env.CLOUDINARY_APIKEY,
   api_secret: process.env.CLOUDINARY_APISECRET
 });
 
-// --- CUSTOM HELPER FUNCTION ---
+// Helper function
 function toTitleCase(str) {
   return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 }
@@ -24,7 +24,7 @@ async function syncDisclosures() {
     // Fetch up to 100 assets from the 'Campaigners Lists' folder in Cloudinary
     console.log("Fetching Disclosure files from Cloudinary...");
     const result = await cloudinary.search
-      .expression('folder:"Elections 2026-27/Disclosures"')
+      .expression('folder:"By-Elections 2026-27/Disclosures"')
       .max_results(100)
       .execute();
 
@@ -32,7 +32,7 @@ async function syncDisclosures() {
 
     // Parse each file
     for (const file of result.resources) {
-      // Extracts filename (e.g., "BG_Disclosure_ANURODH_SAHU")
+      // Extracts filename (e.g., "MR_Disclosure_A_B")
       const filename = file.public_id.split('/').pop(); 
       const parts = filename.split('_'); 
 
